@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace DRWatchdogV2
+namespace Audio_Dynamic_Range_Compressor
 {
     class VolumeMixer : VolumeMeterReader
     {

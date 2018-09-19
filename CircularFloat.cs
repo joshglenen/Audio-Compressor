@@ -1,13 +1,13 @@
 ﻿using System;
 
-namespace DRWatchdogV2
+namespace Audio_Dynamic_Range_Compressor
 {
     /// <summary>
     /// Limited purpose float with limited values that are written over. Useful for finding average.
     /// </summary>
     class CircularFloat
     {
-        private int index = 0;
+        public int index = 0;
         public bool dataLoaded = false;
         public int length;
         private float[] buffer;

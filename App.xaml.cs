@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace DRWatchdogV2
+namespace Audio_Dynamic_Range_Compressor
 {
     /// <summary>
     /// Interaction logic for App.xaml
