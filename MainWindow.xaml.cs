@@ -33,7 +33,7 @@ namespace Audio_Dynamic_Range_Compressor
         public int timerInterval = 50;
         public double DownThresh = 0.40;
         public double holdTime = 500;
-        public double percentMod = 0.50;
+        public double upperGain = 0.50;
         public double attackVal = 10;
         public double releaseVal = 10;
         public static int defaultVol = 2;
@@ -76,13 +76,18 @@ namespace Audio_Dynamic_Range_Compressor
 
         private void g_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            PR.Text = gain.Value.ToString();
-            percentMod = Convert.ToDouble(PR.Text);
+            PR.Text = peakVoluemToDB(gain.Value).ToString();
+            upperGain = Convert.ToDouble(PR.Text);
         }
-        private double applyGain(double db)
+        private double dBtoPeakVolume(double db)
         {
             double val;
             return val = Math.Pow(10, (db / 10));
+        }
+        private double peakVoluemToDB(double peakVolume)
+        {
+            double val;
+            return val = 10*Math.Log10(peakVolume/1);
         }
         public void RunProg_Click(object sender, RoutedEventArgs e)
         {

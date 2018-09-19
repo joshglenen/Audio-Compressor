@@ -36,7 +36,7 @@
                 </TransformGroup>
             </Slider.RenderTransform>
         </Slider>
-        <Slider x:Name="gain" Margin="171,110,24,42" IsSnapToTickEnabled="True" Value="-3" Minimum="-30" Maximum="0" TickPlacement="BottomRight"  IsMoveToPointEnabled="True"  TickFrequency="0.01" LargeChange="0.01" ValueChanged="g_ValueChanged" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2">
+        <Slider x:Name="gain" Margin="171,110,24,42" IsSnapToTickEnabled="True" Value="0.5" Minimum="0" Maximum="1" TickPlacement="BottomRight"  IsMoveToPointEnabled="True"  TickFrequency="0.01" LargeChange="0.01" ValueChanged="g_ValueChanged" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2">
             <Slider.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>

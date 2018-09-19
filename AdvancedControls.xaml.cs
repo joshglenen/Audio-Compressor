@@ -61,27 +61,27 @@ namespace Audio_Dynamic_Range_Compressor
 
         private void at_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            AT.Text = attack.Value.ToString();
+            AT.Text = Math.Floor(attack.Value).ToString();
         }
 
         private void re_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            RE.Text = release.Value.ToString();
+            RE.Text = Math.Floor(release.Value).ToString();
         }
 
         private void in_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            IN.Text = interval.Value.ToString();
+            IN.Text = Math.Floor(interval.Value).ToString();
         }
 
         private void ho_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            Hold.Text = hold.Value.ToString();
+            Hold.Text = Math.Floor(hold.Value).ToString();
         }
 
         private void sa_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            samps.Text = sampsslid.Value.ToString();
+            samps.Text = Math.Floor(sampsslid.Value).ToString();
         }
     }
     
