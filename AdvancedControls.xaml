@@ -12,20 +12,24 @@
         Title="AdvancedControls" Height="260" Width="400"
          Background="#0C141F">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="131*"/>
+            <ColumnDefinition Width="269*"/>
+        </Grid.ColumnDefinitions>
         <TextBlock  Foreground ="#E6FFFF" HorizontalAlignment="Left" Margin="10,77,0,0" TextWrapping="Wrap" Text="Attack (ms):" VerticalAlignment="Top" Height="16" Width="95"/>
         <TextBlock  Foreground ="#E6FFFF" HorizontalAlignment="Left" Margin="10,109,0,0" TextWrapping="Wrap" Text="Release (ms):" VerticalAlignment="Top" Height="16" Width="95"/>
-        <TextBlock  Foreground ="#E6FFFF" x:Name="AT" HorizontalAlignment="Left" Height="16" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="28" Margin="124,77,0,0"/>
-        <TextBlock  Foreground ="#E6FFFF" x:Name="RE"  HorizontalAlignment="Left" Height="16" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="28" Margin="124,109,0,0"/>
+        <TextBlock  Foreground ="#E6FFFF" x:Name="AT" HorizontalAlignment="Left" Height="16" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="28" Margin="0,77,0,0" Grid.Column="1"/>
+        <TextBlock  Foreground ="#E6FFFF" x:Name="RE"  HorizontalAlignment="Left" Height="16" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="28" Margin="0,109,0,0" Grid.Column="1"/>
         <TextBlock  Foreground ="#E6FFFF" HorizontalAlignment="Left" Margin="10,139,0,0" TextWrapping="Wrap" Text="Interval (ms):" VerticalAlignment="Top" Height="16" Width="94"/>
-        <TextBlock  Foreground ="#E6FFFF" x:Name="IN"  HorizontalAlignment="Left" Height="16" TextWrapping="Wrap" Text="50" VerticalAlignment="Top" Width="28" Margin="124,139,0,0"/>
-        <TextBlock  Foreground ="#E6FFFF" HorizontalAlignment="Left" Margin="10,14,0,0" TextWrapping="Wrap" Text="Upper threshold:" VerticalAlignment="Top" Height="16" Width="95"/>
-        <TextBlock  Foreground ="#E6FFFF" HorizontalAlignment="Left" Margin="10,46,0,0" TextWrapping="Wrap" Text="Lower threshold:" VerticalAlignment="Top" Height="16" Width="94"/>
-        <TextBlock  Foreground ="#E6FFFF" x:Name="UP" HorizontalAlignment="Left" Height="16" TextWrapping="Wrap" Text="0.80" VerticalAlignment="Top" Width="28" Margin="124,14,0,0"/>
-        <TextBlock  Foreground ="#E6FFFF" x:Name="LO" HorizontalAlignment="Left" Height="16" TextWrapping="Wrap" Text="0.40" VerticalAlignment="Top" Width="28" Margin="124,46,0,0" RenderTransformOrigin="0.5,0.5"/>
+        <TextBlock  Foreground ="#E6FFFF" x:Name="IN"  HorizontalAlignment="Left" Height="16" TextWrapping="Wrap" Text="50" VerticalAlignment="Top" Width="28" Margin="0,139,0,0" Grid.Column="1"/>
+        <TextBlock  Foreground ="#E6FFFF" HorizontalAlignment="Left" Margin="10,14,0,0" TextWrapping="Wrap" Text="Upper threshold (%):" VerticalAlignment="Top" Height="16" Width="114"/>
+        <TextBlock  Foreground ="#E6FFFF" HorizontalAlignment="Left" Margin="10,46,0,0" TextWrapping="Wrap" Text="Lower threshold (%):" VerticalAlignment="Top" Height="16" Width="109"/>
+        <TextBlock  Foreground ="#E6FFFF" x:Name="UP" HorizontalAlignment="Left" Height="16" TextWrapping="Wrap" Text="80" VerticalAlignment="Top" Width="28" Margin="0,14,0,0" Grid.Column="1"/>
+        <TextBlock  Foreground ="#E6FFFF" x:Name="LO" HorizontalAlignment="Left" Height="16" TextWrapping="Wrap" Text="40" VerticalAlignment="Top" Width="28" Margin="0,46,0,0" RenderTransformOrigin="0.5,0.5" Grid.Column="1"/>
         <TextBlock  Foreground ="#E6FFFF" HorizontalAlignment="Left" Margin="10,170,0,0" TextWrapping="Wrap" Text="Hold (ms):" VerticalAlignment="Top" Height="16" Width="94"/>
-        <TextBlock  Foreground ="#E6FFFF" x:Name="Hold"  HorizontalAlignment="Left" Height="16" TextWrapping="Wrap" Text="500" VerticalAlignment="Top" Width="28" Margin="124,170,0,0"/>
+        <TextBlock  Foreground ="#E6FFFF" x:Name="Hold"  HorizontalAlignment="Left" Height="16" TextWrapping="Wrap" Text="500" VerticalAlignment="Top" Width="28" Margin="0,170,0,0" Grid.Column="1"/>
         <Button Background="#6FC3DF"  Content="Done" HorizontalAlignment="Left" Margin="10,199,0,0" VerticalAlignment="Top" Width="75" Height="20" Click="Button_Click"/>
-        <Slider Name="upperthreshold" Margin="173,14,24,214" IsSnapToTickEnabled="True" Value="0.8" Minimum="0" Maximum="1" TickPlacement="BottomRight"  IsMoveToPointEnabled="True"  TickFrequency="0.01" LargeChange="0.01" ValueChanged="ut_ValueChanged" RenderTransformOrigin="0.5,0.5">
+        <Slider Name="upperthreshold" Margin="42,14,24,226" IsSnapToTickEnabled="True" Value="80" Minimum="0" Maximum="100" TickPlacement="BottomRight"  IsMoveToPointEnabled="True"  TickFrequency="0.01" LargeChange="0.01" ValueChanged="ut_ValueChanged" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
             <Slider.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -35,7 +39,7 @@
                 </TransformGroup>
             </Slider.RenderTransform>
         </Slider>
-        <Slider x:Name="lowthresh" Margin="173,46,24,182" IsSnapToTickEnabled="True" Value="0.4" Minimum="0" Maximum="1" TickPlacement="BottomRight"  IsMoveToPointEnabled="True"  TickFrequency="0.01" LargeChange="0.01" ValueChanged="lt_ValueChanged" RenderTransformOrigin="0.5,0.5">
+        <Slider x:Name="lowthresh" Margin="42,46,24,194" IsSnapToTickEnabled="True" Value="40" Minimum="0" Maximum="100" TickPlacement="BottomRight"  IsMoveToPointEnabled="True"  TickFrequency="0.01" LargeChange="0.01" ValueChanged="lt_ValueChanged" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
             <Slider.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -45,7 +49,7 @@
                 </TransformGroup>
             </Slider.RenderTransform>
         </Slider>
-        <Slider x:Name="attack" Margin="173,77,24,151" IsSnapToTickEnabled="True" Value="10" Minimum="1" Maximum="1000" TickPlacement="BottomRight"  IsMoveToPointEnabled="True"  TickFrequency="0.01" LargeChange="1" ValueChanged="at_ValueChanged" RenderTransformOrigin="0.5,0.5">
+        <Slider x:Name="attack" Margin="42,77,24,164" IsSnapToTickEnabled="True" Value="10" Minimum="1" Maximum="1000" TickPlacement="BottomRight"  IsMoveToPointEnabled="True"  TickFrequency="0.01" LargeChange="1" ValueChanged="at_ValueChanged" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
             <Slider.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -55,7 +59,7 @@
                 </TransformGroup>
             </Slider.RenderTransform>
         </Slider>
-        <Slider x:Name="release" Margin="173,109,24,119" IsSnapToTickEnabled="True" Value="100" Minimum="1" Maximum="1000" TickPlacement="BottomRight"  IsMoveToPointEnabled="True"  TickFrequency="0.01" LargeChange="1" ValueChanged="re_ValueChanged" RenderTransformOrigin="0.5,0.5">
+        <Slider x:Name="release" Margin="42,109,24,134" IsSnapToTickEnabled="True" Value="100" Minimum="1" Maximum="1000" TickPlacement="BottomRight"  IsMoveToPointEnabled="True"  TickFrequency="0.01" LargeChange="1" ValueChanged="re_ValueChanged" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
             <Slider.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -65,7 +69,7 @@
                 </TransformGroup>
             </Slider.RenderTransform>
         </Slider>
-        <Slider x:Name="interval" Margin="173,139,24,89" IsSnapToTickEnabled="True" Value="50" Minimum="1" Maximum="1000" TickPlacement="BottomRight"  IsMoveToPointEnabled="True"  TickFrequency="0.01" LargeChange="1" ValueChanged="in_ValueChanged" RenderTransformOrigin="0.5,0.5">
+        <Slider x:Name="interval" Margin="42,139,24,103" IsSnapToTickEnabled="True" Value="50" Minimum="1" Maximum="1000" TickPlacement="BottomRight"  IsMoveToPointEnabled="True"  TickFrequency="0.01" LargeChange="1" ValueChanged="in_ValueChanged" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
             <Slider.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -75,7 +79,7 @@
                 </TransformGroup>
             </Slider.RenderTransform>
         </Slider>
-        <Slider x:Name="hold" Margin="173,170,24,58" IsSnapToTickEnabled="True" Value="100" Minimum="1" Maximum="1000" TickPlacement="BottomRight"  IsMoveToPointEnabled="True"  TickFrequency="0.01" LargeChange="1" ValueChanged="ho_ValueChanged" RenderTransformOrigin="0.5,0.5">
+        <Slider x:Name="hold" Margin="42,170,24,70" IsSnapToTickEnabled="True" Value="100" Minimum="1" Maximum="1000" TickPlacement="BottomRight"  IsMoveToPointEnabled="True"  TickFrequency="0.01" LargeChange="1" ValueChanged="ho_ValueChanged" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
             <Slider.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -85,9 +89,9 @@
                 </TransformGroup>
             </Slider.RenderTransform>
         </Slider>
-        <TextBlock  Foreground ="#E6FFFF" HorizontalAlignment="Left" Margin="103,204,0,0" TextWrapping="Wrap" Text="Averaging samples:" VerticalAlignment="Top" Height="16" Width="104"/>
-        <TextBlock  Foreground ="#E6FFFF" x:Name="samps"  HorizontalAlignment="Left" Height="16" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="28" Margin="225,204,0,0"/>
-        <Slider x:Name="sampsslid" Margin="261,204,25,24" IsSnapToTickEnabled="True" Value="10" Minimum="1" Maximum="100" TickPlacement="BottomRight"  IsMoveToPointEnabled="True"  TickFrequency="0.01" LargeChange="1" ValueChanged="sa_ValueChanged" RenderTransformOrigin="0.5,0.5">
+        <TextBlock  Foreground ="#E6FFFF" HorizontalAlignment="Left" Margin="103,204,0,0" TextWrapping="Wrap" Text="Averaging samples:" VerticalAlignment="Top" Height="16" Width="104" Grid.ColumnSpan="2"/>
+        <TextBlock  Foreground ="#E6FFFF" x:Name="samps"  HorizontalAlignment="Left" Height="16" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="28" Margin="94,204,0,0" Grid.Column="1"/>
+        <Slider x:Name="sampsslid" Margin="130,204,25,36" IsSnapToTickEnabled="True" Value="10" Minimum="1" Maximum="100" TickPlacement="BottomRight"  IsMoveToPointEnabled="True"  TickFrequency="0.01" LargeChange="1" ValueChanged="sa_ValueChanged" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
             <Slider.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>

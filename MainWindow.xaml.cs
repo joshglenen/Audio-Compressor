@@ -126,8 +126,8 @@ namespace Audio_Dynamic_Range_Compressor
         //recieve changes from advanced controls when second window is closed
         private void advancedControls_SubmitClicked(object sender, EventArgs e)
         {
-            DownThresh = advancedControls.aDownThresh;
-            UpThresh = advancedControls.aUpThresh;
+            DownThresh = advancedControls.aDownThresh/100;
+            UpThresh = advancedControls.aUpThresh/100;
             attackVal = advancedControls.aattackVal;
             samples = advancedControls.asamples;
             releaseVal = advancedControls.areleaseVal;
