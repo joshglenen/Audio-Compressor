@@ -18,11 +18,11 @@
         <Button Background="#6FC3DF" Name="RunProg" Content="Run" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="RunProg_Click" Height="20"/>
         <StatusBar HorizontalAlignment="Left" Height="100" Margin="-331,89,0,-29" VerticalAlignment="Top" Width="100"/>
         <ProgressBar Background="#E6FFFF" Foreground="Silver" Name ="Emu" Height="20" Margin="2,10,6,0" VerticalAlignment="Top" Grid.Column="1" />
-        <Button Background="#6FC3DF"  Content="Advanced" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="75" Height="20" Click="Button_Click"/>
-        <TextBlock Foreground ="#E6FFFF" HorizontalAlignment="Left" Margin="10,110,0,0" TextWrapping="Wrap" Text="Gain (db):" VerticalAlignment="Top" Height="16" Width="56"/>
+        <Button Name ="adv" Background="#6FC3DF"  Content="Advanced" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="75" Height="20" Click="Button_Click"/>
+        <TextBlock Foreground ="#E6FFFF" HorizontalAlignment="Left" Margin="10,110,0,0" TextWrapping="Wrap" Text="Ratio:" VerticalAlignment="Top" Height="16" Width="56"/>
         <TextBlock Foreground ="#E6FFFF" Text="Preamp Volume:" HorizontalAlignment="Left" Margin="10,76,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="16" Width="95"/>
         <TextBlock Foreground ="#E6FFFF" Name="DV" HorizontalAlignment="Left" Height="16" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" Width="28" Margin="105,76,0,0"/>
-        <TextBlock Foreground ="#E6FFFF" Name="PR" HorizontalAlignment="Left" Height="16" TextWrapping="Wrap" Text="-3" VerticalAlignment="Top" Width="34" Margin="71,110,0,0" RenderTransformOrigin="-1.318,0.5"/>
+        <TextBlock Foreground ="#E6FFFF" Name="PR" HorizontalAlignment="Left" Height="16" TextWrapping="Wrap" Text="-3" VerticalAlignment="Top" Width="34" Margin="51,110,0,0" RenderTransformOrigin="-1.318,0.5"/>
         <ProgressBar x:Name ="Emu_Copy" Background="#E6FFFF" Foreground="Gray" Height="20" Margin="2,35,6,0" VerticalAlignment="Top" Grid.Column="1" />
         <TextBlock Foreground ="#E6FFFF"   Text="Peak Volume:" HorizontalAlignment="Left" Margin="97,14,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="16" Width="74"/>
         <TextBlock Foreground ="#E6FFFF" Text="Average Volume:" HorizontalAlignment="Left" Margin="97,39,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="16" Width="94"/>
@@ -36,7 +36,7 @@
                 </TransformGroup>
             </Slider.RenderTransform>
         </Slider>
-        <Slider x:Name="gain" Margin="171,110,24,42" IsSnapToTickEnabled="True" Value="0.5" Minimum="0" Maximum="1" TickPlacement="BottomRight"  IsMoveToPointEnabled="True"  TickFrequency="0.01" LargeChange="0.01" ValueChanged="g_ValueChanged" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2">
+        <Slider x:Name="ratio" Margin="171,110,24,42" IsSnapToTickEnabled="True" Value="0.5" Minimum="0" Maximum="1" TickPlacement="BottomRight"  IsMoveToPointEnabled="True"  TickFrequency="0.01" LargeChange="0.01" ValueChanged="attenuation_ValueChanged" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2">
             <Slider.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>

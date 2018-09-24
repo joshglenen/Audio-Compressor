@@ -69,7 +69,8 @@ namespace Audio_Dynamic_Range_Compressor
 
 
             }
-            catch (Exception ex) { Console.WriteLine($"**Could not set audio level** {ex.Message}"); }
+            catch { Console.WriteLine("VolumeMixer.SetVol casting issue");
+            }
         }
     }
 
@@ -106,6 +107,12 @@ namespace Audio_Dynamic_Range_Compressor
                 {
                     using (var sessionEnumerator = sessionManager.GetSessionEnumerator())
                     {
+                        //TODO: Currently, this app is only intended to work with one audio stream. Could expand to have multiple audio stream controls.
+                        //If n audio streams are found, the data will be stored as if n samples of a single audio stream were taken.
+                        //The net effect is that the uaveraged value will only take data from the nth audiostream 
+                        //...however, the averaged value will be an average of all audio streams which will be corrupt data where a loud stream
+                        //...and a silent stream will average out to a medium volume stream. A medium and a loud stream will average out to 
+                        //...a loud stream giving the louder stream the control provided the quieter stream is not too quiet.
                         foreach (var session in sessionEnumerator)
                         {
                             if (session.QueryInterface<AudioMeterInformation>() != null)

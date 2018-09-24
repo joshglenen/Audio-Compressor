@@ -27,7 +27,7 @@ namespace Audio_Dynamic_Range_Compressor
         public double aholdTime;
         public double aattackVal;
         public double areleaseVal;
-        public bool unityMode;
+        public bool trueGain;
 
         public AdvancedControls()
         {
@@ -85,15 +85,32 @@ namespace Audio_Dynamic_Range_Compressor
             samps.Text = Math.Floor(sampsslid.Value).ToString();
         }
 
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        private void TRUEGAIN_CheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            unityMode = true;
+            trueGain = true;
+            hold.Visibility = Visibility.Collapsed;
+            Hold.Visibility = Visibility.Collapsed;
+            AT.Visibility = Visibility.Collapsed;
+            attack.Visibility = Visibility.Collapsed;
+            RE.Visibility = Visibility.Collapsed;
+            release.Visibility = Visibility.Collapsed;
+            aText.Visibility = Visibility.Collapsed;
+            rText.Visibility = Visibility.Collapsed;
+            hText.Visibility = Visibility.Collapsed;
         }
 
-        private void notCheckBox_Checked(object sender, RoutedEventArgs e)
+        private void TRUEGAIN_notCheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            unityMode = false;
-
+            trueGain = false;
+            hold.Visibility = Visibility.Visible;
+            Hold.Visibility = Visibility.Visible;
+            AT.Visibility = Visibility.Visible;
+            attack.Visibility = Visibility.Visible;
+            RE.Visibility = Visibility.Visible;
+            release.Visibility = Visibility.Visible;
+            aText.Visibility = Visibility.Visible;
+            rText.Visibility = Visibility.Visible;
+            hText.Visibility = Visibility.Visible;
         }
     }
     

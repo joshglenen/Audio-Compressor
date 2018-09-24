@@ -12,6 +12,9 @@ namespace Audio_Dynamic_Range_Compressor
 {
     public partial class MainWindow : Window
     {
+        private int curSetVol = defaultVol;
+        #region Timer Preferences Set or Altered
+
         private void SetTimer()
         {
             myTimer = new System.Timers.Timer(timerInterval);
@@ -27,22 +30,7 @@ namespace Audio_Dynamic_Range_Compressor
             attackTimer.Enabled = false;
             releaseTimer.Enabled = false;
         }
-        //waits a set time before immediately decreasing the volume
-        private void OnTimedEventRelease(object sender, ElapsedEventArgs e)
-        {
-            volLowered = !volLowered;
-            VolumeMixer.SetVol(Convert.ToInt32(defaultVol));
-            if (hold) myTimer.Interval = holdTime;
-            myTimer.Enabled = true;
-        }
-        //waits a set time before immediately increasing the volume
-        private void OnTimedEventAttack(object sender, ElapsedEventArgs e)
-        {
-            volLowered = !volLowered;
-            VolumeMixer.SetVol(Convert.ToInt32(defaultVol * dBtoPeakVolume(upperGain)));
-            if (hold) myTimer.Interval = holdTime;
-            myTimer.Enabled = true;
-        }
+
         //occurs many times per second -> performance issues may arise at low delta t
         private void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
@@ -63,26 +51,105 @@ namespace Audio_Dynamic_Range_Compressor
                     else Dispatcher.Invoke(new Action(() => { checkVolume(buf); }), DispatcherPriority.ContextIdle);
                 }
                 else Dispatcher.Invoke(new Action(() => { checkVolume(buf); }), DispatcherPriority.ContextIdle);
-
-                //reset the timer since the timer value is changed during the hold process
-                myTimer.Interval = timerInterval;
             }
 
-            catch(Exception ee)
+            catch
             {
-                Debug.WriteLine("Threading issue: " + ee.ToString());
+                Debug.WriteLine("Casting issue in intimed event");
+                
             }
         }
+
+        //waits a set time before immediately decreasing the volume
+        private void OnTimedEventRelease(object sender, ElapsedEventArgs e)
+        {
+            volLowered = !volLowered;
+            VolumeMixer.SetVol(Convert.ToInt32(defaultVol));
+            if (hold) myTimer.Interval = holdTime;
+            myTimer.Enabled = true;
+        }
+
+        //waits a set time before immediately increasing the volume
+        private void OnTimedEventAttack(object sender, ElapsedEventArgs e)
+        {
+            volLowered = !volLowered;
+            VolumeMixer.SetVol(Convert.ToInt32(defaultVol * attenuation));
+            if (hold) myTimer.Interval = holdTime;
+            myTimer.Enabled = true;
+        }
+
+        #endregion
+
+        #region Timer Activated Operations
+
+        /*
+        private double dBtoPeakVolume(double db)
+        {
+            double val;
+            return val = Math.Pow(10, (db / 10));
+        }
+
+        private double peakVolumeToDB(double peakVolume)
+        {
+            double val;
+            return val = 10 * Math.Log10(peakVolume / 1);
+        }
+        */
 
         //checks or changes the volume
         private void checkVolume(float val)
         {
-            if(unityMode)
+            //reset timer interval
+            myTimer.Interval = timerInterval;
+
+            //in case the user clicks stop while calculation is taking place
+            if (!myTimer.Enabled) return;
+
+            //true gain mode
+            if (trueGain)
             {
-                setVolumeToUnity();
-                return;
+                try
+                {
+                    //apply upper attenuation
+                    if (val > UpThresh)
+                    {
+
+                        curSetVol = Convert.ToInt32(defaultVol * (1 - ((val - UpThresh) * (1 - attenuation))));
+                        //Debug.WriteLine("Signal attenuated to " + i.ToString());
+                        VolumeMixer.SetVol(curSetVol);
+
+                    }
+
+                    //apply lower attenuation
+                    else if (val < DownThresh)
+                    {
+                        curSetVol = Convert.ToInt32(defaultVol * (1 + ((DownThresh - val) * (1 - attenuation))));
+                        //Debug.WriteLine("Signal amplified to " + i.ToString());
+                       VolumeMixer.SetVol(curSetVol);
+                    }
+
+
+                    //keep original signal as is
+                    else
+                    {
+                        if (curSetVol == defaultVol) return;
+                        curSetVol = defaultVol;
+                        VolumeMixer.SetVol(Convert.ToInt32(curSetVol));
+
+                    }
+                }
+
+                catch
+                {
+                    Debug.WriteLine("TRUE GAIN: Threading issue");
+
+
+                }
+
             }
-            if (((!volLowered) && (val >= UpThresh)) || ((volLowered) && (val <= DownThresh)))
+
+            //original mode
+            else if (((!volLowered) && (val >= UpThresh)) || ((volLowered) && (val <= DownThresh)))
             {
                 myTimer.Enabled = false;
                 if (volLowered)
@@ -99,32 +166,7 @@ namespace Audio_Dynamic_Range_Compressor
                 }
             }
         }
-
-        private void setVolumeToUnity()
-        {
-            int wantToBe = defaultVol;
-            double N = 0.25;
-            int setTo = 0;
-            double currentlyAt = 0;
-            if((myVolumeMixer.bufferMemory.dataLoaded) && (averagePreference)) Dispatcher.Invoke(new Action(() => { currentlyAt = myVolumeMixer.bufferMemory.ReadAverage(); }), DispatcherPriority.ContextIdle);
-            else Dispatcher.Invoke(new Action(() => { currentlyAt = myVolumeMixer.bufferMemory.ReadLast(); }), DispatcherPriority.ContextIdle);
-            if (currentlyAt > N) setTo = Convert.ToInt32(defaultVol/currentlyAt);
-            else setTo = Convert.ToInt32(defaultVol / N);
-            if (setTo > 100) setTo = 100;
-            if (setTo < 0) setTo = 0;
-            //1 -> nothing
-            //0 -> nothing
-            //0.5 -> 1
-            //0.25 -> 1
-            //x = peak
-            //y = new
-            //k = current
-            //maybe y= k/x
-
-            //posible issue for low noises leading into loud noises with a very high volume, therefore need to 
-            //raise the value of the minimum set point from 0 to N. N is only modifiable before compiling.
-
-            VolumeMixer.SetVol(setTo);
-        }
+        
+        #endregion
     }
 }
