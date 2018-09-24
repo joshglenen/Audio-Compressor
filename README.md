@@ -3,3 +3,4 @@ A user friendly audio dynamic range compressor. Currently acts as a low pass pea
 
 ![image](https://github.com/joshglenen/Audio-Compressor/blob/master/Cavfe4.PNG)
     
+![image](https://github.com/joshglenen/Audio-Compressor/blob/master/graph.PNG)
