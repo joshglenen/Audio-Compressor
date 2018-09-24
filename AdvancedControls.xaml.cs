@@ -27,6 +27,7 @@ namespace Audio_Dynamic_Range_Compressor
         public double aholdTime;
         public double aattackVal;
         public double areleaseVal;
+        public bool unityMode;
 
         public AdvancedControls()
         {
@@ -82,6 +83,17 @@ namespace Audio_Dynamic_Range_Compressor
         private void sa_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             samps.Text = Math.Floor(sampsslid.Value).ToString();
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            unityMode = true;
+        }
+
+        private void notCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            unityMode = false;
+
         }
     }
     

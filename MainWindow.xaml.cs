@@ -29,6 +29,7 @@ namespace Audio_Dynamic_Range_Compressor
 
         //dynamic variables
         public double UpThresh = 0.80;
+        public bool unityMode = false;
         public int samples = 10;
         public int timerInterval = 50;
         public double DownThresh = 0.40;
@@ -135,6 +136,7 @@ namespace Audio_Dynamic_Range_Compressor
             UpThresh = advancedControls.aUpThresh/100;
             attackVal = advancedControls.aattackVal;
             samples = advancedControls.asamples;
+            unityMode = advancedControls.unityMode;
             releaseVal = advancedControls.areleaseVal;
             timerInterval = advancedControls.atimerInterval;
             myVolumeMixer = new VolumeMixer(samples);

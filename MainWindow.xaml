@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Audio_Dynamic_Range_Compressor"
-        mc:Ignorable="d" Height="210" Width="400" ResizeMode="NoResize"
+        mc:Ignorable="d" Height="210" Width="400" ResizeMode="CanMinimize"
          Background="#0C141F"
         Left="0" Top="0"
         Title="Audio Dynamic Range Compressor">

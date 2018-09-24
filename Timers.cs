@@ -39,7 +39,7 @@ namespace Audio_Dynamic_Range_Compressor
         private void OnTimedEventAttack(object sender, ElapsedEventArgs e)
         {
             volLowered = !volLowered;
-            VolumeMixer.SetVol(Convert.ToInt32(defaultVol * applyGain(percentMod)));
+            VolumeMixer.SetVol(Convert.ToInt32(defaultVol * dBtoPeakVolume(upperGain)));
             if (hold) myTimer.Interval = holdTime;
             myTimer.Enabled = true;
         }
@@ -77,6 +77,11 @@ namespace Audio_Dynamic_Range_Compressor
         //checks or changes the volume
         private void checkVolume(float val)
         {
+            if(unityMode)
+            {
+                setVolumeToUnity();
+                return;
+            }
             if (((!volLowered) && (val >= UpThresh)) || ((volLowered) && (val <= DownThresh)))
             {
                 myTimer.Enabled = false;
@@ -93,6 +98,33 @@ namespace Audio_Dynamic_Range_Compressor
                     attackTimer.Enabled = true;
                 }
             }
+        }
+
+        private void setVolumeToUnity()
+        {
+            int wantToBe = defaultVol;
+            double N = 0.25;
+            int setTo = 0;
+            double currentlyAt = 0;
+            if((myVolumeMixer.bufferMemory.dataLoaded) && (averagePreference)) Dispatcher.Invoke(new Action(() => { currentlyAt = myVolumeMixer.bufferMemory.ReadAverage(); }), DispatcherPriority.ContextIdle);
+            else Dispatcher.Invoke(new Action(() => { currentlyAt = myVolumeMixer.bufferMemory.ReadLast(); }), DispatcherPriority.ContextIdle);
+            if (currentlyAt > N) setTo = Convert.ToInt32(defaultVol/currentlyAt);
+            else setTo = Convert.ToInt32(defaultVol / N);
+            if (setTo > 100) setTo = 100;
+            if (setTo < 0) setTo = 0;
+            //1 -> nothing
+            //0 -> nothing
+            //0.5 -> 1
+            //0.25 -> 1
+            //x = peak
+            //y = new
+            //k = current
+            //maybe y= k/x
+
+            //posible issue for low noises leading into loud noises with a very high volume, therefore need to 
+            //raise the value of the minimum set point from 0 to N. N is only modifiable before compiling.
+
+            VolumeMixer.SetVol(setTo);
         }
     }
 }
